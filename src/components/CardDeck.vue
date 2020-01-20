@@ -1,6 +1,8 @@
 <template>
   <div class="deck">
     <animated-card color="cyan"></animated-card>
+    <animated-card color="green"></animated-card>
+    <animated-card color="purple"></animated-card>
   </div>
 </template>
 <script>
