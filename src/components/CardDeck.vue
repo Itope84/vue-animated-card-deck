@@ -1,6 +1,6 @@
 <template>
   <div class="deck">
-    <animated-card></animated-card>
+    <animated-card color="cyan"></animated-card>
   </div>
 </template>
 <script>

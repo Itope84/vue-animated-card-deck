@@ -7,6 +7,7 @@ export default {
     color: {
       type: String,
       validator: val => ['red', 'green', 'yellow', 'purple'].indexOf(val) !== -1,
+      required: true,
     },
   },
 };
