@@ -1,5 +1,5 @@
 <template>
-  <div class="card step-0" :style="{ 'background-color': color }"></div>
+  <div class="card" :class="`step-${stage}`" :style="{ 'background-color': color }"></div>
 </template>
 <script>
 export default {
@@ -9,9 +9,24 @@ export default {
       validator: val => ['red', 'green', 'yellow', 'purple'].indexOf(val) !== -1,
       required: true,
     },
+    initialStage: {
+      type: Number,
+      required: true,
+    },
   },
   data() {
-    // currentStage: 0;
+    return {
+      stage: this.initialStage,
+    };
+  },
+  mounted() {
+    setInterval(() => {
+      if (this.stage < 3) {
+        this.stage += 1;
+      } else {
+        this.stage = 0;
+      }
+    }, 4000);
   },
 };
 </script>
@@ -25,17 +40,25 @@ export default {
   position: absolute;
   opacity: 1;
 
-  $n: 10;
-  $interval: 10%;
-
-  &.step-0 {
-    top: 25px;
-    animation: move0 1 ease-in-out 1s;
-    z-index: 1;
-    transform: scale(1.1);
+  @for $k from 0 to 4 {
+    &.step-#{$k} {
+      top: #{25px * ($k)};
+      @if ($k > 0) {
+        animation: move#{$k} 0.5s ease-in-out;
+      }
+      z-index: #{1 + $k};
+      transform: scale(#{1 + (0.1 * $k)});
+      @if ($k > 2) {
+        opacity: 0;
+      }
+    }
   }
+}
 
-  @keyframes move0 {
+$n: 10;
+$interval: 10%;
+@for $k from 0 to 3 {
+  @keyframes move#{$k} {
     /**
     * The first move. At theis point, the item starts at the zeroth
     position and moves into the first
@@ -43,22 +66,12 @@ export default {
     @for $i from 0 to $n {
       $current-frame: ($i * $interval);
       #{$current-frame} {
-        transform: scale(#{1 + (0.01 * $i)});
-        z-index: #{1 + (0.1 * $i)};
-        top: #{2.5 * $i}px;
-      }
-    }
-  }
-
-  @keyframes move1 {
-    /**
-     */
-    @for $i from 0 to $n {
-      $current-frame: ($i * $interval);
-      #{$current-frame} {
-        transform: scale(#{1.1 + (0.01 * $i)});
-        z-index: #{2 + (0.1 * $i)};
-        top: #{2.5 * $i}px;
+        transform: scale(#{1 + (0.01 * $i * $k)});
+        z-index: #{1 + $k + (0.1 * $i)};
+        top: #{(25 * ($k - 1)) + (2.5 * $i)}px;
+        @if ($k > 2) {
+          opacity: 1 - ($i * 0.1);
+        }
       }
     }
   }
