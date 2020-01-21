@@ -1,5 +1,5 @@
 <template>
-  <div class="card" :style="{ 'background-color': color }"></div>
+  <div class="card step-0" :style="{ 'background-color': color }"></div>
 </template>
 <script>
 export default {
@@ -32,6 +32,7 @@ export default {
     top: 25px;
     animation: move0 1 ease-in-out 1s;
     z-index: 1;
+    transform: scale(1.1);
   }
 
   @keyframes move0 {
