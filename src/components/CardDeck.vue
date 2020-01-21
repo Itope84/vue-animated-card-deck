@@ -1,6 +1,9 @@
 <template>
   <div class="deck">
-    <animated-card color="cyan"></animated-card>
+    <animated-card :initialStage="0" color="red"></animated-card>
+    <animated-card :initialStage="1" color="yellow"></animated-card>
+    <animated-card :initialStage="2" color="green"></animated-card>
+    <animated-card :initialStage="3" color="purple"></animated-card>
   </div>
 </template>
 <script>
@@ -15,7 +18,7 @@ export default {
 <style lang="scss" scoped>
 .deck {
   position: relative;
-  width: 400px;
+  width: 350px;
   margin: auto;
 }
 </style>
